@@ -3,3 +3,6 @@ output/
 __pycache__/
 *.pyc
 .DS_Store
+.claude/
+generation.log
+skills-lock.json
