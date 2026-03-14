@@ -23,7 +23,7 @@ Pipeline automatizado de generación de anuncios estáticos para **Meta Ads**, u
 | Contenido | Tapabocas x50 + Gorro Oruga x50 + Guantes Nitrilo x100 |
 | Precio | $41.950 COP |
 | Nicho | Insumos médicos, belleza, odontología, estética |
-| CTA | WhatsApp Business (`3126786075`) |
+| CTA | WhatsApp Business (`XXXXXXXXXXX`) |
 | Objetivo | Meta Ads — conversión directa vía WhatsApp |
 
 ---
