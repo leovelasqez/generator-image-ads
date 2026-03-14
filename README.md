@@ -1,6 +1,6 @@
-# 🎯 Generator Image Ads — PROVI Kit Lila
+# Generator Image Ads — PROVI Kit Lila
 
-Pipeline automatizado de generación de anuncios estáticos para **Meta Ads**, usando **FLUX.1 Kontext Pro** vía [kie.ai](https://kie.ai). Toma una marca y un producto, genera prompts de diseño publicitario de alta conversión y los envía a la API para producir imágenes listas para campañas.
+Pipeline automatizado de generación de anuncios estáticos para **Meta Ads**, usando **Nano Banana Pro** (Gemini 3.0 Pro Image) vía [kie.ai](https://kie.ai). Toma una marca y un producto, genera prompts de diseño publicitario de alta conversión y los envía a la API para producir imágenes listas para campañas.
 
 ---
 
@@ -8,7 +8,7 @@ Pipeline automatizado de generación de anuncios estáticos para **Meta Ads**, u
 
 1. **Investiga la marca** — extrae paleta de colores, tipografía, tono de voz y datos clave del producto
 2. **Genera 20 prompts** — redactados para Meta Ads con 5 ángulos de conversión distintos
-3. **Llama a la API** — envía cada prompt a FLUX.1 Kontext Pro (2 variaciones por prompt = 40 imágenes)
+3. **Llama a la API** — envía cada prompt a Nano Banana Pro (2 variaciones por prompt = 40 imágenes)
 4. **Organiza las imágenes** — guardadas por formato en `./output/provi/kit_lila/`
 5. **Genera una galería HTML** — interfaz visual con Tailwind CSS para revisar todos los anuncios
 
@@ -23,7 +23,7 @@ Pipeline automatizado de generación de anuncios estáticos para **Meta Ads**, u
 | Contenido | Tapabocas x50 + Gorro Oruga x50 + Guantes Nitrilo x100 |
 | Precio | $41.950 COP |
 | Nicho | Insumos médicos, belleza, odontología, estética |
-| CTA | WhatsApp Business (`XXXXXXXXXXX`) |
+| CTA | WhatsApp Business |
 | Objetivo | Meta Ads — conversión directa vía WhatsApp |
 
 ---
@@ -44,8 +44,8 @@ Pipeline automatizado de generación de anuncios estáticos para **Meta Ads**, u
 
 | Componente | Tecnología |
 |------------|------------|
-| Modelo de imagen | [FLUX.1 Kontext Pro](https://kie.ai/features/flux1-kontext) |
-| API | [kie.ai](https://kie.ai) — `api.kie.ai/api/v1/flux/kontext` |
+| Modelo de imagen | [Nano Banana Pro](https://kie.ai/nano-banana-pro) — Gemini 3.0 Pro Image |
+| API | [kie.ai](https://kie.ai) — `api.kie.ai/api/v1/jobs` |
 | Script | Python 3.12 |
 | Dependencias | `requests`, `tqdm`, `python-dotenv` |
 | Galería | HTML + Tailwind CSS (CDN) |
@@ -57,14 +57,16 @@ Pipeline automatizado de generación de anuncios estáticos para **Meta Ads**, u
 ```
 generator-image-ads/
 ├── generate_ads.py          # Script principal del pipeline
+├── debug_nbpro.py           # Script de diagnóstico de la API
 ├── provi_ad_prompts.json    # 20 prompts estructurados por ángulo
 ├── provi_brand_dna.md       # Identidad visual y datos de la marca
-├── .env.example             # Plantilla de variables de entorno
+├── assets/
+│   └── kit_lila_referencia.webp  # Imagen de referencia del producto
 ├── .gitignore
 └── output/                  # Imágenes generadas (excluido de git)
     └── provi/kit_lila/
         ├── formato_1x1/     # Anuncios 1:1 (Feed cuadrado)
-        ├── formato_4x5/     # Anuncios 3:4 (Feed vertical)
+        ├── formato_4x5/     # Anuncios 4:5 (Feed vertical)
         └── index.html       # Galería de revisión
 ```
 
@@ -105,23 +107,26 @@ El script generará **40 imágenes** (20 prompts × 2 variaciones) organizadas p
 
 ---
 
-## API de kie.ai — FLUX.1 Kontext Pro
+## API de kie.ai — Nano Banana Pro
 
 El script usa el modelo asíncrono de kie.ai:
 
 ```
-POST https://api.kie.ai/api/v1/flux/kontext/generate
-GET  https://api.kie.ai/api/v1/flux/kontext/record-info?taskId=<id>
+POST https://api.kie.ai/api/v1/jobs/createTask
+GET  https://api.kie.ai/api/v1/jobs/recordInfo?taskId=<id>
 ```
 
 **Payload de ejemplo:**
 
 ```json
 {
-  "model": "flux-kontext-pro",
-  "prompt": "...",
-  "aspectRatio": "1:1",
-  "outputFormat": "jpeg"
+  "model": "nano-banana-pro",
+  "input": {
+    "prompt": "...",
+    "aspect_ratio": "1:1",
+    "resolution": "1K",
+    "output_format": "jpg"
+  }
 }
 ```
 
@@ -130,28 +135,26 @@ GET  https://api.kie.ai/api/v1/flux/kontext/record-info?taskId=<id>
 ```json
 {
   "data": {
-    "successFlag": 1,
-    "response": {
-      "resultImageUrl": "https://..."
-    }
+    "state": "success",
+    "resultJson": "{\"resultUrls\": [\"https://...\"]}"
   }
 }
 ```
 
-| `successFlag` | Estado |
+| `state` | Significado |
 |---|---|
-| `0` | Generando |
-| `1` | Exitoso |
-| `2` / `3` | Fallido |
+| `waiting` | En cola |
+| `success` | Completado |
+| `failed` | Fallido |
 
 ---
 
 ## Formatos de salida
 
-| Formato | Ratio API | Uso Meta Ads |
-|---------|-----------|-------------|
-| `formato_1x1` | `1:1` | Feed cuadrado |
-| `formato_4x5` | `3:4` | Feed vertical (mayor alcance orgánico) |
+| Formato | Ratio | Uso Meta Ads |
+|---------|-------|-------------|
+| `formato_1x1` | `1:1` | Feed cuadrado — 1080×1080 |
+| `formato_4x5` | `4:5` | Feed vertical — 1080×1350 |
 
 ---
 
@@ -160,11 +163,12 @@ GET  https://api.kie.ai/api/v1/flux/kontext/record-info?taskId=<id>
 Edita las constantes al inicio de `generate_ads.py`:
 
 ```python
-FLUX_MODEL            = "flux-kontext-pro"  # o "flux-kontext-max"
-VARIATIONS_PER_PROMPT = 2                   # variaciones por prompt
-DELAY_BETWEEN_REQUESTS = 0.6               # segundos entre requests
-MAX_RETRIES           = 3                   # reintentos por fallo
-POLL_INTERVAL         = 5.0                # segundos entre polls
+MODEL                 = "nano-banana-pro"
+OUTPUT_RESOLUTION     = "1K"       # "1K" | "2K" | "4K"
+VARIATIONS_PER_PROMPT = 2          # variaciones por prompt
+DELAY_BETWEEN_REQUESTS = 0.6       # segundos entre requests
+MAX_RETRIES           = 3          # reintentos por fallo
+POLL_INTERVAL         = 5.0        # segundos entre polls
 ```
 
 ---
