@@ -1,4 +1,4 @@
-# Generator Image Ads — PROVI Kit Lila
+# Generator Image Ads
 
 Pipeline automatizado de generación de anuncios estáticos para **Meta Ads**, usando **Nano Banana Pro** (Gemini 3.0 Pro Image) vía [kie.ai](https://kie.ai). Toma una marca y un producto, genera prompts de diseño publicitario de alta conversión y los envía a la API para producir imágenes listas para campañas.
 
