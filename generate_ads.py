@@ -47,14 +47,14 @@ if hasattr(sys.stderr, "reconfigure"):
 
 API_KEY: str = os.getenv("NB2_API_KEY", "TU_API_KEY_AQUI")
 
-# Endpoints de kie.ai — FLUX.1 Kontext Pro
-# Confirmado via debug_flux.py
-KIE_BASE_URL: str = "https://api.kie.ai/api/v1/flux/kontext"
-NB2_GENERATE_ENDPOINT: str = f"{KIE_BASE_URL}/generate"      # POST — crea el task
-NB2_STATUS_ENDPOINT: str = f"{KIE_BASE_URL}/record-info"     # GET  — ?taskId=<id>
+# Endpoints de kie.ai — Nano Banana Pro
+# Confirmado via debug_nbpro.py
+KIE_BASE_URL: str = "https://api.kie.ai/api/v1/jobs"
+NB2_GENERATE_ENDPOINT: str = f"{KIE_BASE_URL}/createTask"    # POST — crea el task
+NB2_STATUS_ENDPOINT: str = f"{KIE_BASE_URL}/recordInfo"      # GET  — ?taskId=<id>
 
 # Modelo activo
-FLUX_MODEL: str = "flux-kontext-pro"  # "flux-kontext-pro" | "flux-kontext-max"
+MODEL: str = "nano-banana-pro"
 
 # Carpeta raíz de salida
 OUTPUT_DIR: Path = Path("./output/provi/kit_lila")
@@ -62,18 +62,17 @@ OUTPUT_DIR: Path = Path("./output/provi/kit_lila")
 # Variaciones por prompt (2 variaciones × 20 prompts = 40 imágenes)
 VARIATIONS_PER_PROMPT: int = 2
 
-# Formatos Meta Ads — FLUX Kontext Pro soporta: 1:1, 3:4, 9:16, 4:3, 16:9
-# 4:5 no está soportado → se mapea a 3:4 (portrait más cercano para Meta Feed)
+# Formatos Meta Ads — Nano Banana Pro soporta 4:5 nativo
 ASPECT_RATIOS: dict = {
     "1:1": "1:1",   # 1080×1080 — Feed cuadrado
-    "4:5": "3:4",   # 1080×1350 aprox → 3:4 es lo más cercano disponible
+    "4:5": "4:5",   # 1080×1350 — Feed vertical (mayor alcance)
 }
 
-# Resolución de salida (no aplica en FLUX Kontext, se ignora)
-OUTPUT_RESOLUTION: str = "2K"
+# Resolución de salida: "1K" | "2K" | "4K"
+OUTPUT_RESOLUTION: str = "1K"
 
-# Formato de imagen de salida — FLUX Kontext acepta "jpeg" o "png" (no "jpg")
-OUTPUT_FORMAT: str = "jpeg"
+# Formato de imagen de salida
+OUTPUT_FORMAT: str = "jpg"
 
 # Rate limiting — kie.ai permite hasta 20 requests por 10 segundos
 DELAY_BETWEEN_REQUESTS: float = 0.6   # 20 req/10s → 1 cada 0.5s + margen
@@ -133,22 +132,28 @@ def build_headers() -> dict:
 
 def build_payload(prompt_data: dict, aspect_ratio: str, variation_seed: int) -> dict:
     """
-    Construye el payload para FLUX.1 Kontext Pro en kie.ai.
+    Construye el payload para Nano Banana Pro en kie.ai.
 
-    Estructura confirmada via debug_flux.py:
+    Estructura confirmada via debug_nbpro.py:
       {
-        "model": "flux-kontext-pro",
-        "prompt": "...",
-        "aspectRatio": "1:1" | "4:5" | ...,
-        "outputFormat": "jpeg"
+        "model": "nano-banana-pro",
+        "input": {
+          "prompt": "...",
+          "aspect_ratio": "1:1" | "4:5" | ...,
+          "resolution": "1K",
+          "output_format": "jpg"
+        }
       }
     """
     ratio_value = ASPECT_RATIOS[aspect_ratio]
     return {
-        "model": FLUX_MODEL,
-        "prompt": prompt_data["prompt"],
-        "aspectRatio": ratio_value,
-        "outputFormat": OUTPUT_FORMAT,
+        "model": MODEL,
+        "input": {
+            "prompt": prompt_data["prompt"],
+            "aspect_ratio": ratio_value,
+            "resolution": OUTPUT_RESOLUTION,
+            "output_format": OUTPUT_FORMAT,
+        },
     }
 
 
@@ -192,10 +197,10 @@ def request_with_retry(
 
 def submit_generation_job(payload: dict) -> str:
     """
-    Envía un job de generación a kie.ai — FLUX.1 Kontext Pro.
+    Envía un job de generación a kie.ai — Nano Banana Pro.
 
     Respuesta confirmada:
-        {"code": 200, "msg": "success", "data": {"taskId": "abc123"}}
+        {"code": 200, "msg": "success", "data": {"taskId": "abc123", "recordId": "abc123"}}
     """
     response = request_with_retry("POST", NB2_GENERATE_ENDPOINT, headers=build_headers(), json=payload)
     result = response.json()
@@ -212,17 +217,15 @@ def submit_generation_job(payload: dict) -> str:
 
 def poll_job_status(task_id: str) -> str:
     """
-    Hace polling al endpoint GET /record-info?taskId=<id> de kie.ai (FLUX Kontext).
+    Hace polling al endpoint GET /recordInfo?taskId=<id> de kie.ai (Nano Banana Pro).
 
     Respuesta confirmada al completar:
         {
           "code": 200, "msg": "success",
           "data": {
             "taskId": "...",
-            "successFlag": 1,          -- 0=generando, 1=exito, 2/3=fallo
-            "response": {
-              "resultImageUrl": "https://..."
-            }
+            "state": "success",
+            "resultJson": "{\"resultUrls\":[\"https://...\"]}"
           }
         }
     """
@@ -231,19 +234,24 @@ def poll_job_status(task_id: str) -> str:
         response = request_with_retry("GET", url, headers=build_headers())
         result = response.json()
         data = result.get("data", {})
-        flag = data.get("successFlag")
+        state = data.get("state", "").lower()
 
-        if flag == 1:
-            image_url = data.get("response", {}).get("resultImageUrl")
+        if state == "success":
+            result_json_str = data.get("resultJson", "")
+            try:
+                urls = json.loads(result_json_str).get("resultUrls") or []
+                image_url = urls[0] if urls else None
+            except (json.JSONDecodeError, IndexError):
+                image_url = None
             if not image_url:
                 raise ValueError(f"Task exitoso pero sin URL de imagen: {data}")
             return image_url
 
-        if flag in (2, 3):
-            err = data.get("errorMessage") or data.get("errorCode") or "Error desconocido"
-            raise RuntimeError(f"Task {task_id} fallo (flag={flag}): {err}")
+        if state in ("failed", "error"):
+            err = data.get("failMsg") or data.get("failCode") or "Error desconocido"
+            raise RuntimeError(f"Task {task_id} fallo: {err}")
 
-        log.debug(f"Task {task_id} — successFlag={flag} (poll {attempt + 1}/{MAX_POLL_ATTEMPTS})")
+        log.debug(f"Task {task_id} — state={state!r} (poll {attempt + 1}/{MAX_POLL_ATTEMPTS})")
         time.sleep(POLL_INTERVAL)
 
     raise TimeoutError(f"Task {task_id} no completo en {MAX_POLL_ATTEMPTS * POLL_INTERVAL:.0f}s")
@@ -539,7 +547,7 @@ def run_pipeline():
     validate_config()
 
     log.info("=" * 60)
-    log.info(f"PROVI Kit Lila — Iniciando pipeline ({FLUX_MODEL})")
+    log.info(f"PROVI Kit Lila — Iniciando pipeline ({MODEL})")
     log.info(f"Variaciones por prompt: {VARIATIONS_PER_PROMPT}")
     log.info(f"Formatos: {list(ASPECT_RATIOS.keys())}")
     log.info("=" * 60)

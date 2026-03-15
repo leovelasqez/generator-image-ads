@@ -12,7 +12,6 @@
 | **Instagram** | @provi.tienda |
 | **WhatsApp Business** | 3126786075 |
 | **Posicionamiento** | "Insumos y Suministros Para Tu Negocio" |
-| **Antigüedad** | 10 años en el mercado |
 | **Mercado** | Colombia (envíos nacionales) |
 | **Modelo de negocio** | B2B mayorista / distribuidor a profesionales |
 
@@ -116,9 +115,10 @@
 - Profesionales de micropigmentación
 
 ### Secundario:
-- Consultorios odontológicos
-- Personal médico y de salud
-- Negocios de estética y spa
+- **Centros de estética**: Tratamientos faciales, corporales, manicura y pedicura
+- **Spas**: Masajes, exfoliaciones, tratamientos de belleza
+- **Peluquerías**: Tintes, alisados, cortes con protección
+- **Consultorios**: Procedimientos estéticos menores
 
 ### Pain points del target:
 - Quieren insumos con color coordinado (imagen profesional ante el cliente)
