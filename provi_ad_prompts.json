@@ -23,7 +23,10 @@
     "total_prompts": 20,
     "variations_per_prompt": 2,
     "total_images": 40,
-    "formats": ["1:1", "4:5"],
+    "formats": [
+      "1:1",
+      "4:5"
+    ],
     "generated_date": "2026-03-14"
   },
   "prompts": [
@@ -33,11 +36,16 @@
       "angle": "titular_hero",
       "angle_label": "Titular Hero",
       "format": "4:5",
-      "headline": "El kit que te hace ver diferente desde el primer guante.",
+      "headline": "El kit que te hace ver diferente desde el primer momento.",
       "cta": "Pídelo por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use the product images as brand reference. Reproduce the exact product colors, typographic style, and brand tone. Create: a static ad with a solid lilac background #A855F7. Top third: large bold sans-serif headline in white Montserrat ExtraBold that reads 'El kit que te hace ver diferente desde el primer guante.' Smaller subheadline below in white: 'Tapabocas + Gorro Oruga + Guantes Nitrilo. $55.000 COP.' Bottom half: flat-lay product photo of Kit Lila Completo — lilac nitrile gloves box, lilac face masks box, lilac hair nets — arranged on a white marble surface with soft studio lighting, shot from slightly above at 50mm f/2.8. PROVI logo bottom right in white. Teal #2CB1BC CTA bar at the bottom: 'Pídelo por WhatsApp ➜'. INVIMA badge bottom left. Clean, authoritative, premium beauty brand aesthetic. Aspect ratio 4:5.",
-      "negative_prompt": "blurry text, cluttered layout, low quality, watermark, distorted products, english text",
-      "style_tags": ["headline ad", "flat lay", "premium", "brand awareness"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use the product images as brand reference. Reproduce the exact product colors, typographic style, and brand tone. Create: a static ad with a solid lilac background #A855F7. Top third: large bold sans-serif headline in white Montserrat ExtraBold that reads 'El kit que te hace ver diferente desde el primer guante.' Smaller subheadline below in white: 'Tapabocas + Gorro Oruga + Guantes Nitrilo. $55.000 COP.' Bottom half: flat-lay product photo of Kit Lila Completo — lilac nitrile gloves box, lilac face masks box, lilac hair nets — arranged on a white marble surface with soft studio lighting, shot from slightly above at 50mm f/2.8. INVIMA badge bottom left. Clean, authoritative, premium beauty brand aesthetic. Aspect ratio 4:5.",
+      "negative_prompt": "blurry text, cluttered layout, low quality, watermark, distorted products, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "headline ad",
+        "flat lay",
+        "premium",
+        "brand awareness"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -48,9 +56,14 @@
       "format": "4:5",
       "headline": "Kit Lila Completo — $55.000 COP",
       "cta": "Escríbenos al WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use product images as brand reference. Reproduce exact brand colors and typographic style. Create: a promotional ad with a split background. The top 60% is lilac #A855F7 and the bottom 40% is warm cream/white #FAFAFA. The Kit Lila Completo product (lilac gloves box, lilac masks box, lilac hair nets) is centered at the color junction with soft studio lighting. Top zone: large white sans-serif bold text 'Kit Lila Completo'. Below in white: '$55.000 COP'. Smaller white text below: 'Tapabocas x50 · Gorro Oruga x50 · Guantes Nitrilo x100'. Bottom section: dark navy #0F2A43 text listing key values: '✓ Certificado INVIMA ✓ Envíos a toda Colombia ✓ Precio de distribuidor'. Teal #2CB1BC CTA bar: 'Escríbenos al WhatsApp ➜ 312 678 6075'. PROVI logo bottom right. Aspect ratio 4:5.",
-      "negative_prompt": "cluttered, misaligned split, cheap looking, blurry, watermark, english text",
-      "style_tags": ["promotional", "price offer", "split layout", "product hero"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use product images as brand reference. Reproduce exact brand colors and typographic style. Create: a promotional ad with a split background. The top 60% is lilac #A855F7 and the bottom 40% is warm cream/white #FAFAFA. The Kit Lila Completo product (lilac gloves box, lilac masks box, lilac hair nets) is centered at the color junction with soft studio lighting. Top zone: large white sans-serif bold text 'Kit Lila Completo'. Below in white: '$55.000 COP'. Smaller white text below: 'Tapabocas x50 · Gorro Oruga x50 · Guantes Nitrilo x100'. Bottom section: dark navy #0F2A43 text listing key values: '✓ Certificado INVIMA ✓ Envíos a toda Colombia ✓ Precio de distribuidor'. Aspect ratio 4:5.",
+      "negative_prompt": "cluttered, misaligned split, cheap looking, blurry, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "promotional",
+        "price offer",
+        "split layout",
+        "product hero"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -61,9 +74,14 @@
       "format": "4:5",
       "headline": "\"Mis clientas preguntan dónde consigo los guantes lilas\"",
       "cta": "Cotiza por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a testimonial ad set in a bright professional nail salon with warm natural light. Kit Lila products (lilac gloves, lilac masks, lilac hair nets) arranged on a clean salon table, slightly out of focus. Overlaid text: bold white sans-serif large headline '\"Mis clientas preguntan dónde consigo los guantes lilas\"'. Below in smaller white text: '\"Desde que uso el Kit Lila de PROVI, mi imagen cambió por completo. Todo coordinado, todo profesional, y mis clientes lo notan.\"' Five gold filled stars ⭐⭐⭐⭐⭐. Attribution: 'Laura M. — Manicurista profesional, Bogotá'. PROVI logo bottom right in white. Teal #2CB1BC CTA strip: 'Cotiza por WhatsApp ➜'. Shot at 35mm f/2.0. Warm, authentic, professional beauty setting. Aspect ratio 4:5.",
-      "negative_prompt": "fake looking, over-produced, stock photo feel, bad lighting, watermark, english text",
-      "style_tags": ["testimonial", "lifestyle", "warm tone", "authentic professional"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a testimonial ad set in a bright professional nail salon with warm natural light. Kit Lila products (lilac gloves, lilac masks, lilac hair nets) arranged on a clean salon table, slightly out of focus. Overlaid text: bold white sans-serif large headline '\"Mis clientas preguntan dónde consigo los guantes lilas\"'. Below in smaller white text: '\"Desde que uso el Kit Lila de PROVI, mi imagen cambió por completo. Todo en lila, todo profesional, y mis clientes lo notan.\"' Five gold filled stars ⭐⭐⭐⭐⭐. Attribution: 'Laura M. — Manicurista profesional, Bogotá'. Shot at 35mm f/2.0. Warm, authentic, professional beauty setting. Aspect ratio 4:5.",
+      "negative_prompt": "fake looking, over-produced, stock photo feel, bad lighting, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "testimonial",
+        "lifestyle",
+        "warm tone",
+        "authentic professional"
+      ],
       "color_dominant": "#C084FC"
     },
     {
@@ -74,9 +92,14 @@
       "format": "1:1",
       "headline": "¿Qué hace diferente al Kit Lila?",
       "cta": "Pídelo por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: an educational diagram-style ad on white background. Top: bold lilac #A855F7 text header '¿Qué hace diferente al Kit Lila?' Below: Kit Lila Completo product (lilac gloves, lilac face masks, lilac hair nets) centered, even studio lighting. Four callout boxes with connecting lines pointing to different products: '✓ Certificado INVIMA — uso profesional garantizado', '✓ Color lila coordinado — imagen premium para tu negocio', '✓ 200 unidades en 1 kit — precio de distribuidor', '✓ Guantes nitrilo hipoalergénicos — protección total'. Each callout has a small lilac circle dot. Website text bottom center: 'provi.tienda'. PROVI logo bottom right. Clean, luxury-agency-redesigned scientific diagram aesthetic. Price badge: '$55.000 COP'. Teal #2CB1BC accent colors. Aspect ratio 1:1.",
-      "negative_prompt": "cluttered callouts, illegible connectors, cheap layout, watermark, english text",
-      "style_tags": ["diagram", "educational", "features", "infographic"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: an educational diagram-style ad on white background. Top: bold lilac #A855F7 text header '¿Qué hace diferente al Kit Lila?' Below: Kit Lila Completo product (lilac gloves, lilac face masks, lilac hair nets) centered, even studio lighting. Four callout boxes with connecting lines pointing to different products: '✓ Certificado INVIMA — uso profesional garantizado', '✓ Todo en tono lila — imagen premium para tu negocio', '✓ 200 unidades en 1 kit — precio de distribuidor', '✓ Guantes nitrilo hipoalergénicos — protección total'. Each callout has a small lilac circle dot. Website text bottom center: 'provi.tienda'. Clean, luxury-agency-redesigned scientific diagram aesthetic. Price badge: '$55.000 COP'. Teal #2CB1BC accent colors. Aspect ratio 1:1.",
+      "negative_prompt": "cluttered callouts, illegible connectors, cheap layout, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "diagram",
+        "educational",
+        "features",
+        "infographic"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -87,9 +110,14 @@
       "format": "4:5",
       "headline": "Todo lo que necesitas para trabajar hoy.",
       "cta": "Escríbenos y te asesoramos",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a benefits list ad, split composition on white background. Left 40%: Kit Lila Completo (lilac gloves box, lilac masks box, lilac hair nets) on white marble surface, shot at 85mm f/2.8. Right 60%: vertical stack of five lines with filled lilac circles #A855F7: '✓ Tapabocas quirúrgico lila x50', '✓ Gorro oruga lila x50', '✓ Guantes nitrilo lila x100', '✓ Certificado INVIMA', '✓ Precio $55.000 COP'. Clean sans-serif Montserrat, generous spacing. PROVI logo bottom right in navy #0F2A43. Teal #2CB1BC accent. CTA: 'Escríbenos y te asesoramos ➜'. Price badge in orange #F7630C: '$16.500 de ahorro vs. compra individual'. Premium, airy, professional layout. Aspect ratio 4:5.",
-      "negative_prompt": "cramped list, bad alignment, illegible text, watermark, english text",
-      "style_tags": ["bullet points", "split layout", "product showcase", "benefits"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a benefits list ad, split composition on white background. Left 40%: Kit Lila Completo (lilac gloves box, lilac masks box, lilac hair nets) on white marble surface, shot at 85mm f/2.8. Right 60%: vertical stack of five lines with filled lilac circles #A855F7: '✓ Tapabocas quirúrgico lila x50', '✓ Gorro oruga lila x50', '✓ Guantes nitrilo lila x100', '✓ Certificado INVIMA', '✓ Precio $55.000 COP'. Clean sans-serif Montserrat, generous spacing. Teal #2CB1BC accent. CTA: 'Escríbenos y te asesoramos ➜'. Price badge in orange #F7630C: '$16.500 de ahorro vs. compra individual'. Premium, airy, professional layout. Aspect ratio 4:5.",
+      "negative_prompt": "cramped list, bad alignment, illegible text, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "bullet points",
+        "split layout",
+        "product showcase",
+        "benefits"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -100,9 +128,14 @@
       "format": "4:5",
       "headline": "Kit Lila PROVI vs. Compra Individual",
       "cta": "Haz tu pedido por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a vertically split comparison image. Left side: muted blue-gray background. Right side: vibrant lilac #A855F7. Top center: white circle with 'VS' text. Left header: 'Compra Individual' in gray + generic mixed-color supplies (blue gloves, white masks, random hair nets) with red X marks and list: '✗ Tapabocas x50: ~$24.000', '✗ Gorros x50: ~$14.500', '✗ Guantes x100: ~$33.000', '✗ Total: $71.500 COP', '✗ Sin garantía INVIMA'. Right header: 'Kit Lila PROVI' in white bold + coordinated lilac kit (gloves, masks, hair nets) with white checkmarks and list: '✓ Color lila coordinado', '✓ Todo en un solo pedido', '✓ Solo $55.000 COP', '✓ Certificado INVIMA', '✓ Asesoría por WhatsApp'. PROVI logo bottom right. Teal CTA bar: 'Haz tu pedido por WhatsApp ➜'. Aspect ratio 4:5.",
-      "negative_prompt": "unclear comparison, bad alignment, blurry, watermark, english text",
-      "style_tags": ["us vs them", "comparison", "value proposition", "competitive"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a vertically split comparison image. Left side: muted blue-gray background. Right side: vibrant lilac #A855F7. Top center: white circle with 'VS' text. Left header: 'Compra Individual' in gray + generic mixed-color supplies (blue gloves, white masks, random hair nets) with red X marks and list: '✗ Tapabocas x50: ~$24.000', '✗ Gorros x50: ~$14.500', '✗ Guantes x100: ~$33.000', '✗ Total: $71.500 COP', '✗ Sin garantía INVIMA'. Right header: 'Kit Lila PROVI' in white bold + coordinated lilac kit (gloves, masks, hair nets) with white checkmarks and list: '✓ Todo en tono lila', '✓ Todo en un solo pedido', '✓ Solo $55.000 COP', '✓ Certificado INVIMA', '✓ Asesoría por WhatsApp'. Aspect ratio 4:5.",
+      "negative_prompt": "unclear comparison, bad alignment, blurry, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "us vs them",
+        "comparison",
+        "value proposition",
+        "competitive"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -113,9 +146,14 @@
       "format": "1:1",
       "headline": "\"El problema: ahora no puedo usar guantes de otro color\"",
       "cta": "Pídelo por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a scroll-stopping reverse-negative review ad. Background: close-up of the Kit Lila products (lilac gloves, lilac masks) slightly out of focus, vibrant purple tones. Center: white rounded-corner review card (Mercado Libre style). Gray user icon, name 'Camila R.' One gold star + four gray stars, orange badge 'Compra Verificada'. Bold text: '\"El problema: ahora no puedo usar guantes de otro color\"'. Body text in lighter gray: 'Pensé que era exagerado pagar por un kit coordinado. Error mío. La imagen de mi salón cambió completamente. Mis clientes preguntan. No puedo volver a los guantes azules genéricos.' Below the card: bold white sans-serif text 'LAS RESEÑAS YA LO DICEN 🩷'. PROVI logo bottom right. Teal #2CB1BC accent. Aspect ratio 1:1.",
-      "negative_prompt": "confusing messaging, illegible review card, bad layout, watermark, english text",
-      "style_tags": ["negative marketing", "reverse review", "scroll stopper", "social proof"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a scroll-stopping reverse-negative review ad. Background: close-up of the Kit Lila products (lilac gloves, lilac masks) slightly out of focus, vibrant purple tones. Center: white rounded-corner review card (Mercado Libre style). Gray user icon, name 'Camila R.' One gold star + four gray stars, orange badge 'Compra Verificada'. Bold text: '\"El problema: ahora no puedo usar guantes de otro color\"'. Body text in lighter gray: 'Pensé que era exagerado pagar por un kit completo en lila. Error mío. La imagen de mi salón cambió completamente. Mis clientes preguntan. No puedo volver a los guantes azules genéricos.' Below the card: bold white sans-serif text 'LAS RESEÑAS YA LO DICEN 🩷'. Teal #2CB1BC accent. Aspect ratio 1:1.",
+      "negative_prompt": "confusing messaging, illegible review card, bad layout, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "negative marketing",
+        "reverse review",
+        "scroll stopper",
+        "social proof"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -126,9 +164,14 @@
       "format": "1:1",
       "headline": "\"¡Por fin un kit que me hace ver profesional!\"",
       "cta": "Escríbenos al WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a review-focused ad with a solid lilac #A855F7 muted pastel background filling the entire image. Top half: large bold italic serif white text with curly quotes: '\"¡Por fin un kit que me hace ver profesional!\"'. Directly below the quote: five large gold star icons in a horizontal row. Bottom left, overlaid on the color block: white rounded-corner review card with soft shadow containing: gray circular avatar icon, bold name 'Valentina C. 🇨🇴' with blue verified checkmark 'Compradora Verificada' in blue small text. Review body in dark regular sans-serif (4-5 lines): 'Llevo 3 años como esteticista y siempre usaba guantes azules genéricos. El Kit Lila de PROVI cambió todo. El lila coordina perfectamente con mi consultorio y mis clientas preguntan donde compro. La calidad INVIMA se nota en cada uso. Lo recomiendo completamente...' ending with '...Leer más' in bold lilac. Below text: '¿Fue útil esta reseña? 👍 247 / 1.8K'. Bottom right, overlaid on card edge: Kit Lila Completo product (lilac gloves box slightly tilted) with subtle shadow. Aspect ratio 1:1.",
-      "negative_prompt": "fake review UI, cluttered card, bad typography, watermark, english text",
-      "style_tags": ["pull quote", "review card", "social proof", "trust"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a review-focused ad with a solid lilac #A855F7 muted pastel background filling the entire image. Top half: large bold italic serif white text with curly quotes: '\"¡Por fin un kit que me hace ver profesional!\"'. Directly below the quote: five large gold star icons in a horizontal row. Bottom left, overlaid on the color block: white rounded-corner review card with soft shadow containing: gray circular avatar icon, bold name 'Valentina C. 🇨🇴' with blue verified checkmark 'Compradora Verificada' in blue small text. Review body in dark regular sans-serif (4-5 lines): 'Llevo 3 años como esteticista y siempre usaba guantes azules genéricos. El Kit Lila de PROVI cambió todo. El lila coordina perfectamente con mi consultorio y mis clientas preguntan donde compro. La calidad INVIMA se nota en cada uso. Lo recomiendo completamente...' ending with '...Leer más' in bold lilac. Below text: '¿Fue útil esta reseña? 👍 247 / 1.8K'. Bottom right, overlaid on card edge: Kit Lila Completo product (lilac gloves box slightly tilted) with subtle shadow. Aspect ratio 1:1.",
+      "negative_prompt": "fake review UI, cluttered card, bad typography, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "pull quote",
+        "review card",
+        "social proof",
+        "trust"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -139,9 +182,14 @@
       "format": "1:1",
       "headline": "200 unidades de bioseguridad en 1 solo kit",
       "cta": "Cotiza por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a static ad on a white to lilac #C084FC light gradient background (top to bottom). Top: large bold navy #0F2A43 sans-serif headline: '200 unidades de bioseguridad en 1 solo kit'. Center: Kit Lila Completo product (lilac gloves box, lilac masks box, lilac hair nets neatly arranged) on white background, soft studio lighting. Floating near product: circular badge '$55.000 COP' in teal #2CB1BC. On both sides of the product: four statistics with hand-drawn style curved arrows pointing toward the product. Left upper: '50' in oversized bold text with label 'TAPABOCAS'. Left lower: '50' bold with label 'GORROS ORUGA'. Right upper: '100' bold with label 'GUANTES NITRILO'. Right lower: 'INVIMA' with label 'CERTIFICADO'. Arrows in dark navy thin hand-drawn style. Bottom: 'provi.tienda' small text. Clean, informative, scannable. Aspect ratio 1:1.",
-      "negative_prompt": "cluttered stats, illegible numbers, messy arrows, watermark, english text",
-      "style_tags": ["radial stats", "product hero", "data visualization", "clean"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a static ad on a white to lilac #C084FC light gradient background (top to bottom). Top: large bold navy #0F2A43 sans-serif headline: '200 unidades de bioseguridad en 1 solo kit'. Center: Kit Lila Completo product (lilac gloves box, lilac masks box, lilac hair nets neatly arranged) on white background, soft studio lighting. Floating near product: circular badge '$55.000 COP' in teal #2CB1BC. On both sides of the product: four statistics with hand-drawn style curved arrows pointing toward the product. Left upper: '50' in oversized bold text with label 'TAPABOCAS'. Left lower: '50' bold with label 'GORROS ORUGA'. Right upper: '100' bold with label 'GUANTES NITRILO'. Right lower: 'INVIMA' with label 'CERTIFICADO'. Arrows in dark navy thin hand-drawn style. Bottom: 'provi.tienda' small text. Clean, informative, scannable. Aspect ratio 1:1.",
+      "negative_prompt": "cluttered stats, illegible numbers, messy arrows, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "radial stats",
+        "product hero",
+        "data visualization",
+        "clean"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -152,9 +200,14 @@
       "format": "1:1",
       "headline": "BIOSEGURIDAD PREMIUM COORDINADA 24/7",
       "cta": "Haz tu pedido por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a static bundle showcase ad on a lilac #A855F7 to purple #7C3AED gradient background. Top: oversized bold white sans-serif all-caps headline: 'BIOSEGURIDAD PREMIUM COORDINADA'. Below the headline: a teal #2CB1BC horizontal bar divided into five equal segments with thin vertical dividers, each with a two-word benefit label in white: 'Color Coordinado' | 'Precio Mayorista' | 'Cert. INVIMA' | 'Envíos Colombia' | 'Asesoría Gratis'. Center below: the Kit Lila product box photographed from a slightly bird's-eye angle, open or displayed showing all three components (lilac gloves, lilac masks, lilac hair nets) inside, with soft bright studio lighting. Bottom foreground: a professional's hand in lilac glove entering from the bottom of frame. PROVI logo bottom left in white. Bright studio lighting, saturated colors, energetic and empowering aesthetic. Aspect ratio 1:1.",
-      "negative_prompt": "dark muddy colors, illegible benefit bar, bad product display, watermark, english text",
-      "style_tags": ["bundle showcase", "benefit bar", "premium", "system selling"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a static bundle showcase ad on a lilac #A855F7 to purple #7C3AED gradient background. Top: oversized bold white sans-serif all-caps headline: 'BIOSEGURIDAD PREMIUM COORDINADA'. Below the headline: a teal #2CB1BC horizontal bar divided into five equal segments with thin vertical dividers, each with a two-word benefit label in white: 'Todo en Lila' | 'Precio Mayorista' | 'Cert. INVIMA' | 'Envíos Colombia' | 'Asesoría Gratis'. Center below: the Kit Lila product box photographed from a slightly bird's-eye angle, open or displayed showing all three components (lilac gloves, lilac masks, lilac hair nets) inside, with soft bright studio lighting. Bottom foreground: a professional's hand in lilac glove entering from the bottom of frame. Bright studio lighting, saturated colors, energetic and empowering aesthetic. Aspect ratio 1:1.",
+      "negative_prompt": "dark muddy colors, illegible benefit bar, bad product display, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "bundle showcase",
+        "benefit bar",
+        "premium",
+        "system selling"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -165,9 +218,14 @@
       "format": "1:1",
       "headline": "¿YA LEÍSTE ESTO? 😱",
       "cta": "Pídelo por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a static ad on clean white background. Top: oversized bold black sans-serif headline '¿YA LEÍSTE ESTO? 😱'. Center: a realistic social media comment card with light gray rounded background containing: small circular profile avatar (top left), bold name 'Monica Velandia', multi-sentence review in regular-weight sans-serif: 'Llevaba años comprando guantes, tapabocas y gorros por separado y gastando muchísimo más. Una amiga me recomendó el Kit Lila de PROVI y no lo puedo creer. Todo coordinado en lila, precio de distribuidor, llega en 2 días y la calidad es INVIMA. Mi consultorio ahora se ve completamente diferente. Ya hice 3 pedidos.' Gray timestamp 'hace 2 días' below comment. Facebook-style reaction icons (👍 ❤️) with count '312'. Bottom center: Kit Lila Completo product photo on white surface, soft studio lighting, slightly angled. No brand logo. No stars. Raw and organic feeling. Aspect ratio 1:1.",
-      "negative_prompt": "fake-looking comment, obvious ad design, bad product photo, watermark, english text",
-      "style_tags": ["social comment", "UGC capture", "organic feel", "social proof"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a static ad on clean white background. Top: oversized bold black sans-serif headline '¿YA LEÍSTE ESTO? 😱'. Center: a realistic social media comment card with light gray rounded background containing: small circular profile avatar (top left), bold name 'Monica Velandia', multi-sentence review in regular-weight sans-serif: 'Llevaba años comprando guantes, tapabocas y gorros por separado y gastando muchísimo más. Una amiga me recomendó el Kit Lila de PROVI y no lo puedo creer. Todo coordinado en lila, precio de distribuidor, llega en 2 días y la calidad es INVIMA. Mi consultorio ahora se ve completamente diferente. Ya hice 3 pedidos.' Gray timestamp 'hace 2 días' below comment. Facebook-style reaction icons (👍 ❤️) with count '312'. Bottom center: Kit Lila Completo product photo on white surface, soft studio lighting, slightly angled. No brand logo. No stars. Raw and organic feeling. Aspect ratio 1:1.",
+      "negative_prompt": "fake-looking comment, obvious ad design, bad product photo, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "social comment",
+        "UGC capture",
+        "organic feel",
+        "social proof"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -178,9 +236,14 @@
       "format": "4:5",
       "headline": "Llevo años comprando por separado",
       "cta": "Escríbenos al WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a static ad on clean white background. Top center: large opening quote marks in teal #2CB1BC. Below: mixed-weight headline in black — first line in italic serif 'Llevo años', next two lines in oversized bold sans-serif all-caps: 'COMPRANDO POR SEPARADO', followed by smaller line: 'hasta que encontré el Kit Lila de PROVI — ahora ahorro $16.500 por pedido'. Closing quote and attribution '- Ana G.' in regular weight. Bottom left third: Kit Lila Completo product (lilac gloves box) in slight angle with some gloves spilling near base. Next to product: circular trust seal 'Precio de Distribuidor | INVIMA' in teal #2CB1BC with white text. Bottom right: five filled gold stars and bold '1.200+ Pedidos Exitosos' with PROVI logo. Bottom border: small disclaimer text 'El ahorro se calcula vs. compra individual de cada ítem.' Aspect ratio 4:5.",
-      "negative_prompt": "complex typography, confusing layout, blurry, watermark, english text",
-      "style_tags": ["curiosity gap", "hook testimonial", "scroll stopper", "savings"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a static ad on clean white background. Top center: large opening quote marks in teal #2CB1BC. Below: mixed-weight headline in black — first line in italic serif 'Llevo años', next two lines in oversized bold sans-serif all-caps: 'COMPRANDO POR SEPARADO', followed by smaller line: 'hasta que encontré el Kit Lila de PROVI — ahora ahorro $16.500 por pedido'. Closing quote and attribution '- Ana G.' in regular weight. Bottom left third: Kit Lila Completo product (lilac gloves box) in slight angle with some gloves spilling near base. Next to product: circular trust seal 'Precio de Distribuidor | INVIMA' in teal #2CB1BC with white text. Bottom right: five filled gold stars and bold '1.200+ Pedidos Exitosos'. Bottom border: small disclaimer text 'El ahorro se calcula vs. compra individual de cada ítem.' Aspect ratio 4:5.",
+      "negative_prompt": "complex typography, confusing layout, blurry, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "curiosity gap",
+        "hook testimonial",
+        "scroll stopper",
+        "savings"
+      ],
       "color_dominant": "#2CB1BC"
     },
     {
@@ -191,9 +254,14 @@
       "format": "1:1",
       "headline": "\"¡Al fin encontré donde comprar mis insumos lila!\"",
       "cta": "Cotiza por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a static ad on solid lilac #A855F7 background. Top: bold white italic quote '\"¡Al fin encontré donde comprar mis insumos lila!\"' between quote marks. Below the quote: five large filled gold stars. Center left: white rounded-corner review card with soft shadow containing: gray circular avatar icon, bold name 'Daniela Roa 🇨🇴' with blue verified checkmark text 'Compradora Verificada' in teal. Review body 3-4 sentences in dark regular sans-serif: 'Trabajo como micropigmentadora y busqué durante meses insumos lila que coordinaran. Encontré a PROVI por Instagram y el primer pedido llegó en 2 días. El Kit Lila es exactamente lo que necesitaba: guantes, tapabocas y gorros en el mismo tono lila, todo INVIMA. Ya hago pedidos mensuales.' Blue link at card bottom: '...Leer más' and '¿Fue útil? 👍 189'. Right side, overlapping card edge: Kit Lila Completo product (lilac gloves box) in slight angle, soft studio lighting, delicate shadow on background. Aspect ratio 1:1.",
-      "negative_prompt": "fake review interface, wrong verified UI, cluttered, watermark, english text",
-      "style_tags": ["verified review", "trust mechanism", "social proof", "authentic"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a static ad on solid lilac #A855F7 background. Top: bold white italic quote '\"¡Al fin encontré donde comprar mis insumos lila!\"' between quote marks. Below the quote: five large filled gold stars. Center left: white rounded-corner review card with soft shadow containing: gray circular avatar icon, bold name 'Daniela Roa 🇨🇴' with blue verified checkmark text 'Compradora Verificada' in teal. Review body 3-4 sentences in dark regular sans-serif: 'Trabajo como micropigmentadora y busqué durante meses insumos lila que coordinaran. Encontré a PROVI por Instagram y el primer pedido llegó en 2 días. El Kit Lila es exactamente lo que necesitaba: guantes, tapabocas y gorros en el mismo tono lila, todo INVIMA. Ya hago pedidos mensuales.' Blue link at card bottom: '...Leer más' and '¿Fue útil? 👍 189'. Right side, overlapping card edge: Kit Lila Completo product (lilac gloves box) in slight angle, soft studio lighting, delicate shadow on background. Aspect ratio 1:1.",
+      "negative_prompt": "fake review interface, wrong verified UI, cluttered, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "verified review",
+        "trust mechanism",
+        "social proof",
+        "authentic"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -204,9 +272,14 @@
       "format": "4:5",
       "headline": "PROVI ESTÁ TRANSFORMANDO EL SECTOR DE INSUMOS DE BELLEZA",
       "cta": "Descúbrelo por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images only for tone reference. Do not use polished ad designs — this must look like organic editorial content. Create: a full-ambient portrait photo of a young professional Colombian woman in a modern beauty salon, wearing lilac PROVI gloves, lilac mask, lilac hair net, working on a client's nails. Warm amber-toned lighting, shot at 50mm f/1.8, shallow depth of field, cinematic color grading with warm highlights and cool shadows. The bottom 45% has a text overlay zone: a prominent white pill-shaped rounded label reading 'INSUMOS DEL MOMENTO' in centered sans-serif uppercase. Below: large condensed bold uppercase sans-serif headline filling the width in white with key phrases highlighted in lilac: 'PROVI ESTÁ TRANSFORMANDO EL SECTOR DE INSUMOS DE BELLEZA — Y LAS PROFESIONALES YA LO SABEN'. Bottom center: '@provi.tienda' in small white text. No product shot, no CTA button, no stars. Must read like a beauty industry blog post, not a paid ad. Aspect ratio 4:5.",
-      "negative_prompt": "polished ad design, obvious advertisement, stars, price tags, watermark, english text",
-      "style_tags": ["advertorial", "editorial", "native content", "organic feel"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images only for tone reference. Do not use polished ad designs — this must look like organic editorial content. Create: a full-ambient portrait photo of a young professional Colombian woman in a modern beauty salon, wearing lilac PROVI gloves, lilac mask, lilac hair net, working on a client's nails. Warm amber-toned lighting, shot at 50mm f/1.8, shallow depth of field, cinematic color grading with warm highlights and cool shadows. The bottom 45% has a text overlay zone: a prominent white pill-shaped rounded label reading 'INSUMOS DEL MOMENTO' in centered sans-serif uppercase. Below: large condensed bold uppercase sans-serif headline filling the width in white with key phrases highlighted in lilac: 'PROVI ESTÁ TRANSFORMANDO EL SECTOR DE INSUMOS DE BELLEZA — Y LAS PROFESIONALES YA LO SABEN'. Bottom center: '@provi.tienda' in small white text. No product shot, no CTA button, no stars. Must read like a beauty industry blog post, not a paid ad. Aspect ratio 4:5.",
+      "negative_prompt": "polished ad design, obvious advertisement, stars, price tags, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "advertorial",
+        "editorial",
+        "native content",
+        "organic feel"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -217,9 +290,14 @@
       "format": "1:1",
       "headline": "El lila que tus clientes no olvidan.",
       "cta": "Haz tu pedido por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a static ad on vibrant diagonal gradient background flowing from lilac #A855F7 (top left) to teal #2CB1BC (bottom right). Top left: large white Cooper Black or rounded retro-serif oversized playful text: '¡El lila que tus clientes no olvidan!' — the text feels loose, fun and expressive, not rigid or corporate. Right side: a professional hand descending from the top right corner holding the Kit Lila product box (lilac gloves visible inside), positioned center-right slightly below midline. Bottom left: PROVI logo in white with 'Insumos de Bioseguridad Premium' in smaller white text below. Teal #2CB1BC CTA button: '➜ Pídelo por WhatsApp'. No statistics, no reviews, no badges. The gradient and headline do all the work. Energetic, bold, joyful brand personality. Aspect ratio 1:1.",
-      "negative_prompt": "rigid corporate design, dull colors, fake looking, watermark, english text",
-      "style_tags": ["bold statement", "brand energy", "colorful", "joyful"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a static ad on vibrant diagonal gradient background flowing from lilac #A855F7 (top left) to teal #2CB1BC (bottom right). Top left: large white Cooper Black or rounded retro-serif oversized playful text: '¡El lila que tus clientes no olvidan!' — the text feels loose, fun and expressive, not rigid or corporate. Right side: a professional hand descending from the top right corner holding the Kit Lila product box (lilac gloves visible inside), positioned center-right slightly below midline. No statistics, no reviews, no badges. The gradient and headline do all the work. Energetic, bold, joyful brand personality. Aspect ratio 1:1.",
+      "negative_prompt": "rigid corporate design, dull colors, fake looking, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "bold statement",
+        "brand energy",
+        "colorful",
+        "joyful"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -230,9 +308,14 @@
       "format": "1:1",
       "headline": "Kit Lila PROVI vs. La Competencia",
       "cta": "Escríbenos al WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a vertically split side-by-side comparison ad divided into two equal halves. Left half: vibrant teal #2CB1BC background. Kit Lila Completo (lilac gloves, lilac masks, lilac hair nets) photographed with dynamic energy, slightly dramatic studio lighting showing the coordinated purple color. PROVI logo in white top left. Below product: vertical stack of 4 benefits with green checkmark circles: '✓ COLOR LILA COORDINADO', '✓ 200 UNIDADES EN 1 KIT', '✓ SOLO $55.000 COP', '✓ CERTIFICADO INVIMA' in bold white uppercase. Right half: light cream/beige #F5F0E8 background. Generic competitor supplies: mixed-color gloves (blue, white, green), white generic masks, random hair nets in dull packaging. Header: 'Compra Individual' in dark gray text. Below: vertical stack of 4 weaknesses with red X circles: '✗ TAPABOCAS ~$24.000', '✗ GORROS ~$14.500', '✗ GUANTES ~$33.000', '✗ TOTAL $71.500 SIN INVIMA' in bold dark uppercase. Center divider: comic-style 'VS' graphic in orange #F7630C. Teal CTA bottom: 'Escríbenos al WhatsApp ➜'. Aspect ratio 1:1.",
-      "negative_prompt": "unclear messaging, poor contrast, blurry products, watermark, english text",
-      "style_tags": ["color split", "us vs them", "comparison", "competitive"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a vertically split side-by-side comparison ad divided into two equal halves. Left half: vibrant teal #2CB1BC background. Kit Lila Completo (lilac gloves, lilac masks, lilac hair nets) photographed with dynamic energy, slightly dramatic studio lighting showing the coordinated purple color. Below product: vertical stack of 4 benefits with green checkmark circles: '✓ TODO EN TONO LILA', '✓ 200 UNIDADES EN 1 KIT', '✓ SOLO $55.000 COP', '✓ CERTIFICADO INVIMA' in bold white uppercase. Right half: light cream/beige #F5F0E8 background. Generic competitor supplies: mixed-color gloves (blue, white, green), white generic masks, random hair nets in dull packaging. Header: 'Compra Individual' in dark gray text. Below: vertical stack of 4 weaknesses with red X circles: '✗ TAPABOCAS ~$24.000', '✗ GORROS ~$14.500', '✗ GUANTES ~$33.000', '✗ TOTAL $71.500 SIN INVIMA' in bold dark uppercase. Center divider: comic-style 'VS' graphic in orange #F7630C. Teal CTA bottom: 'Escríbenos al WhatsApp ➜'. Aspect ratio 1:1.",
+      "negative_prompt": "unclear messaging, poor contrast, blurry products, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "color split",
+        "us vs them",
+        "comparison",
+        "competitive"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -243,9 +326,14 @@
       "format": "1:1",
       "headline": "Insumos profesionales. Imagen impecable.",
       "cta": "Cotiza por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a product annotation ad on warm cream #FFF8F0 slightly textured background. Top: italic serif headline 'Insumos certificados. Imagen coordinada.' in navy #0F2A43. Below in oversized bold sans-serif: 'TODO EN UNO'. Center: a professional hand holding the Kit Lila box at a natural angle (showing all three products inside — lilac gloves, lilac masks, lilac hair nets). Four hand-drawn style curved arrows in teal #2CB1BC pointing outward from the product to four benefit labels placed around in bold navy text: 'Certificado INVIMA — uso profesional', 'Color lila único — imagen de marca', 'Ahorra $16.500 vs. compra individual', 'Envíos a toda Colombia'. The arrows feel editorial and hand-drawn, not rigid. Bottom: full-width banner in navy #0F2A43 with white text: 'PEDIDO HOY POR WHATSAPP 312 678 6075 ➜' with teal accent. PROVI logo in white on the banner. Aspect ratio 1:1.",
-      "negative_prompt": "rigid mechanical arrows, cluttered layout, illegible labels, watermark, english text",
-      "style_tags": ["feature annotation", "product callout", "editorial arrows", "clean"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a product annotation ad on warm cream #FFF8F0 slightly textured background. Top: italic serif headline 'Insumos certificados. Imagen coordinada.' in navy #0F2A43. Below in oversized bold sans-serif: 'TODO EN UNO'. Center: a professional hand holding the Kit Lila box at a natural angle (showing all three products inside — lilac gloves, lilac masks, lilac hair nets). Four hand-drawn style curved arrows in teal #2CB1BC pointing outward from the product to four benefit labels placed around in bold navy text: 'Certificado INVIMA — uso profesional', 'Color lila único — imagen de marca', 'Ahorra $16.500 vs. compra individual', 'Envíos a toda Colombia'. The arrows feel editorial and hand-drawn, not rigid. Aspect ratio 1:1.",
+      "negative_prompt": "rigid mechanical arrows, cluttered layout, illegible labels, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "feature annotation",
+        "product callout",
+        "editorial arrows",
+        "clean"
+      ],
       "color_dominant": "#2CB1BC"
     },
     {
@@ -256,9 +344,14 @@
       "format": "1:1",
       "headline": "TRANSFORMA TU IMAGEN PROFESIONAL.",
       "cta": "Haz tu pedido por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a bold statement ad. Top 15%: white banner overlay with oversized bold purple #7C3AED sans-serif all-caps text: 'TRANSFORMA TU IMAGEN.' with a period for punch. Center 55%: lifestyle product photo — a professional beauty technician's hands wearing lilac nitrile gloves performing nail work on a client, with the Kit Lila box visible on a clean white table surface beside them, soft natural studio light, product label and brand clearly visible. Bottom 25%: soft lilac #C084FC background. Three icon-and-text benefit columns evenly distributed: icon of glove + 'MANOS PROTEGIDAS' | icon of shield + 'CERT. INVIMA' | icon of star + 'PRECIO MAYORISTA'. Icons are simple single-line circle style in teal #2CB1BC. Bottom border: teal #2CB1BC ticker bar with repeated text: 'MÁS DE 5.000 KITS VENDIDOS EN COLOMBIA ·'. Aspect ratio 1:1.",
-      "negative_prompt": "bad icon design, poor text contrast, cluttered banner, watermark, english text",
-      "style_tags": ["hero declaration", "icon bar", "bold statement", "social proof ticker"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a bold statement ad. Top 15%: white banner overlay with oversized bold purple #7C3AED sans-serif all-caps text: 'TRANSFORMA TU IMAGEN.' with a period for punch. Center 55%: lifestyle product photo — a professional beauty technician's hands wearing lilac nitrile gloves performing nail work on a client, with the Kit Lila box visible on a clean white table surface beside them, soft natural studio light, product label and brand clearly visible. Bottom 25%: soft lilac #C084FC background. Three icon-and-text benefit columns evenly distributed: icon of glove + 'MANOS PROTEGIDAS' | icon of shield + 'CERT. INVIMA' | icon of star + 'PRECIO MAYORISTA'. Icons are simple single-line circle style in teal #2CB1BC. 000 KITS VENDIDOS EN COLOMBIA ·'. Aspect ratio 1:1.",
+      "negative_prompt": "bad icon design, poor text contrast, cluttered banner, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "hero declaration",
+        "icon bar",
+        "bold statement",
+        "social proof ticker"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -269,9 +362,14 @@
       "format": "4:5",
       "headline": "EL KIT DE BIOSEGURIDAD MÁS COMPLETO DEL MERCADO",
       "cta": "Pídelo por WhatsApp",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use brand images as reference. Create: a product showcase ad on warm sand/cream #FFF3E0 background. Top: large bold sans-serif navy #0F2A43 all-caps headline: 'EL KIT DE BIOSEGURIDAD MÁS COMPLETO'. Below the headline: white rounded rectangle CTA button with navy text: 'PEDIR POR WHATSAPP'. Center: Kit Lila Completo products in full packaging, slightly tilted at hero angle, with soft hero studio lighting. Surrounding the product: scattered lilac gloves, a few face masks, and hair nets arranged in an organic radial explosive pattern creating visual energy over the cream background. Bottom: a wide white pill-shaped stats bar spanning the full width with three metrics separated by thin vertical lines: 'TAPABOCAS x50' | 'GUANTES NITRILO x100' | 'GORROS ORUGA x50'. Numbers are large and dominant in purple #A855F7 bold, labels smaller in navy below. Teal #2CB1BC accent on divider lines. Sello INVIMA en esquina. Aspect ratio 4:5.",
-      "negative_prompt": "messy scattered products, illegible stats bar, dark muddy background, watermark, english text",
-      "style_tags": ["product hero", "stats bar", "explosive layout", "showcase"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use brand images as reference. Create: a product showcase ad on warm sand/cream #FFF3E0 background. Top: large bold sans-serif navy #0F2A43 all-caps headline: 'EL KIT DE BIOSEGURIDAD MÁS COMPLETO'. Below the headline: white rounded rectangle CTA button with navy text: 'PEDIR POR WHATSAPP'. Center: Kit Lila Completo products in full packaging, slightly tilted at hero angle, with soft hero studio lighting. Surrounding the product: scattered lilac gloves, a few face masks, and hair nets arranged in an organic radial explosive pattern creating visual energy over the cream background. Bottom: a wide white pill-shaped stats bar spanning the full width with three metrics separated by thin vertical lines: 'TAPABOCAS x50' | 'GUANTES NITRILO x100' | 'GORROS ORUGA x50'. Numbers are large and dominant in purple #A855F7 bold, labels smaller in navy below. Teal #2CB1BC accent on divider lines. Sello INVIMA en esquina. Aspect ratio 4:5.",
+      "negative_prompt": "messy scattered products, illegible stats bar, dark muddy background, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "product hero",
+        "stats bar",
+        "explosive layout",
+        "showcase"
+      ],
       "color_dominant": "#A855F7"
     },
     {
@@ -282,9 +380,15 @@
       "format": "4:5",
       "headline": "pedí por whatsapp / llegó en 2 días / nunca más compro por separado 💜",
       "cta": "WhatsApp 312 678 6075",
-      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. Use product images as brand reference for colors and packaging only. Create: a lifestyle product photo set in a warm, bright beauty salon workspace — clean white counter, salon tools subtly visible in background (nail files, brushes), warm natural window light from the side, naturally blurred background. The frame is very slightly off-center — the product not perfectly centered, left edge very slightly cropped — feels found rather than composed. Natural subtle sensor grain consistent with an iPhone in indoor daylight. Subtle natural vignette in corners. Center dominant: Kit Lila Completo (lilac nitrile gloves box with PROVI branding, lilac face masks box, lilac hair nets pack) arranged casually on the white counter, slightly tilted toward viewer. A few individual lilac gloves scattered casually around the base for realism. Stuck directly onto the front of the main product box: a yellow square Post-it note, slightly crooked and imperfect — slightly trapezoidal from pressing angle. Realistic paper texture with a horizontal fold in the middle. Subtle curl on bottom right corner only. Held at top by a small piece of transparent tape, slightly wrinkled. Written in thick black marker handwriting, imperfect and uneven, natural lowercase lettering — not formatted, not centered: 'pedí por whatsapp' line break 'llegó en 2 días' line break 'nunca más compro' line break 'por separado 💜'. No attribution. No signature. Bottom center of frame, outside the photo on a plain white strip: small lowercase sans-serif caption text: 'provi.tienda — insumos que transforman tu imagen'. No logo overlay anywhere. Brand identity carried entirely by the product packaging visible in the photo. No border. Mood: auténtico, casual, confiable. Aspect ratio 4:5.",
-      "negative_prompt": "polished ad design, centered composition, fake handwriting, bright uniform lighting, studio backdrop, watermark, english text",
-      "style_tags": ["native organic", "post-it note", "UGC feel", "authentic", "lifestyle"],
+      "prompt": "IMPORTANT: All text visible in the image must be written exclusively in Spanish — no English words in any headline, label, callout, badge, CTA, or caption. No brand logos, no icons, no social media symbols anywhere in the image. All CTAs are plain text on a solid colored bar only — no icons, no logos. Use product images as brand reference for colors and packaging only. Create: a lifestyle product photo set in a warm, bright beauty salon workspace — clean white counter, salon tools subtly visible in background (nail files, brushes), warm natural window light from the side, naturally blurred background. The frame is very slightly off-center — the product not perfectly centered, left edge very slightly cropped — feels found rather than composed. Natural subtle sensor grain consistent with an iPhone in indoor daylight. Subtle natural vignette in corners. Center dominant: Kit Lila Completo (lilac nitrile gloves box with PROVI branding, lilac face masks box, lilac hair nets pack) arranged casually on the white counter, slightly tilted toward viewer. A few individual lilac gloves scattered casually around the base for realism. Stuck directly onto the front of the main product box: a yellow square Post-it note, slightly crooked and imperfect — slightly trapezoidal from pressing angle. Realistic paper texture with a horizontal fold in the middle. Subtle curl on bottom right corner only. Held at top by a small piece of transparent tape, slightly wrinkled. Written in thick black marker handwriting, imperfect and uneven, natural lowercase lettering — not formatted, not centered: 'pedí por whatsapp' line break 'llegó en 2 días' line break 'nunca más compro' line break 'por separado 💜'. No attribution. No signature. Bottom center of frame, outside the photo on a plain white strip: small lowercase sans-serif caption text: 'provi.tienda — insumos que transforman tu imagen'. No logo overlay anywhere. Brand identity carried entirely by the product packaging visible in the photo. No border. Mood: auténtico, casual, confiable. Aspect ratio 4:5.",
+      "negative_prompt": "polished ad design, centered composition, fake handwriting, bright uniform lighting, studio backdrop, watermark, english text, no logos, no brand logo, no PROVI logo, no META logo, no META ADS badge, no social media watermarks, no WhatsApp logo, no WhatsApp icon, no green WhatsApp bubble",
+      "style_tags": [
+        "native organic",
+        "post-it note",
+        "UGC feel",
+        "authentic",
+        "lifestyle"
+      ],
       "color_dominant": "#A855F7"
     }
   ]

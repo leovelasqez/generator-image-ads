@@ -1,16 +1,16 @@
 """
 PROVI — Kit Lila Ad Generator
-Pipeline automatizado de generación de anuncios para Meta Ads via Nano Banana 2
+Pipeline automatizado de generación de anuncios para Meta Ads via fal.ai — Nano Banana 2
 
 Uso:
     python generate_ads.py
 
 Requisitos:
-    pip install requests Pillow tqdm python-dotenv
+    pip install fal-client tqdm python-dotenv requests
 
 Variables de entorno (.env):
-    NB2_API_KEY=tu_api_key_aqui
-    NB2_REFERENCE_IMAGE_PATH=./assets/kit_lila_referencia.jpg  (opcional)
+    FAL_KEY=tu_api_key_de_fal.ai
+    NB2_REFERENCE_IMAGE_PATH=./assets/kit_lila_referencia.jpg  (opcional — activa img2img)
 """
 
 import json
@@ -18,12 +18,10 @@ import os
 import sys
 import time
 import logging
-import hashlib
 import mimetypes
 from pathlib import Path
 from datetime import datetime
 from typing import Optional
-from urllib.parse import urlparse
 
 import requests
 from tqdm import tqdm
@@ -45,16 +43,13 @@ if hasattr(sys.stderr, "reconfigure"):
 # CONFIGURACIÓN — Ajusta estos valores
 # ─────────────────────────────────────────────
 
-API_KEY: str = os.getenv("NB2_API_KEY", "TU_API_KEY_AQUI")
+FAL_KEY: str = os.getenv("FAL_KEY", "TU_FAL_KEY_AQUI")
 
-# Endpoints de kie.ai — Nano Banana Pro
-# Confirmado via debug_nbpro.py
-KIE_BASE_URL: str = "https://api.kie.ai/api/v1/jobs"
-NB2_GENERATE_ENDPOINT: str = f"{KIE_BASE_URL}/createTask"    # POST — crea el task
-NB2_STATUS_ENDPOINT: str = f"{KIE_BASE_URL}/recordInfo"      # GET  — ?taskId=<id>
+# Modelo fal.ai — Nano Banana 2 (Gemini 2.0 Flash Image)
+FAL_MODEL: str = "fal-ai/nano-banana-pro"
 
-# Modelo activo
-MODEL: str = "nano-banana-pro"
+# Imagen de referencia del producto (opcional — activa img2img)
+REFERENCE_IMAGE_PATH: str = os.getenv("NB2_REFERENCE_IMAGE_PATH", "")
 
 # Carpeta raíz de salida
 OUTPUT_DIR: Path = Path("./output/provi/kit_lila")
@@ -62,38 +57,49 @@ OUTPUT_DIR: Path = Path("./output/provi/kit_lila")
 # Variaciones por prompt (2 variaciones × 20 prompts = 40 imágenes)
 VARIATIONS_PER_PROMPT: int = 2
 
-# Formatos Meta Ads — Nano Banana Pro soporta 4:5 nativo
+# Formatos Meta Ads
 ASPECT_RATIOS: dict = {
     "1:1": "1:1",   # 1080×1080 — Feed cuadrado
     "4:5": "4:5",   # 1080×1350 — Feed vertical (mayor alcance)
 }
 
-# Resolución de salida: "1K" | "2K" | "4K"
-OUTPUT_RESOLUTION: str = "1K"
+# Reintentos por fallo
+MAX_RETRIES: int = 3
+RETRY_BACKOFF_BASE: float = 2.0  # segundos base del backoff exponencial
 
-# Formato de imagen de salida
-OUTPUT_FORMAT: str = "jpg"
+# Delay entre requests para respetar rate limits de fal.ai
+DELAY_BETWEEN_REQUESTS: float = 0.5
 
-# Rate limiting — kie.ai permite hasta 20 requests por 10 segundos
-DELAY_BETWEEN_REQUESTS: float = 0.6   # 20 req/10s → 1 cada 0.5s + margen
-MAX_RETRIES: int = 3                   # reintentos por fallo
-RETRY_BACKOFF_BASE: float = 2.0       # base del backoff exponencial (seg)
-POLL_INTERVAL: float = 5.0            # segundos entre polls de estado del task
-MAX_POLL_ATTEMPTS: int = 60           # máx intentos de polling (5 min total)
 
 # ─────────────────────────────────────────────
 # LOGGING
 # ─────────────────────────────────────────────
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.StreamHandler(stream=sys.stdout),
-        logging.FileHandler(OUTPUT_DIR / "generation.log" if OUTPUT_DIR.exists() else "generation.log", encoding="utf-8"),
-    ],
-)
+def setup_logging():
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[
+            logging.StreamHandler(stream=sys.stdout),
+            logging.FileHandler(OUTPUT_DIR / "generation.log", encoding="utf-8"),
+        ],
+    )
+
 log = logging.getLogger(__name__)
+
+
+# ─────────────────────────────────────────────
+# FAL CLIENT SETUP
+# ─────────────────────────────────────────────
+
+def init_fal_client():
+    """Configura el cliente fal.ai con la API key."""
+    import fal_client  # noqa: F401 — verifica instalación
+    os.environ["FAL_KEY"] = FAL_KEY
+
+init_fal_client()
+import fal_client
 
 
 # ─────────────────────────────────────────────
@@ -108,7 +114,7 @@ def setup_output_dirs() -> dict[str, Path]:
         path = OUTPUT_DIR / folder_name
         path.mkdir(parents=True, exist_ok=True)
         dirs[ratio_key] = path
-    log.info(f"Carpetas creadas en: {OUTPUT_DIR}")
+    log.info(f"Carpetas de salida: {OUTPUT_DIR}")
     return dirs
 
 
@@ -121,150 +127,106 @@ def load_prompts(path: str = "provi_ad_prompts.json") -> list[dict]:
     return prompts
 
 
-def build_headers() -> dict:
-    """Headers de autenticación para Nano Banana 2."""
-    return {
-        "Authorization": f"Bearer {API_KEY}",
-        "Content-Type": "application/json",
-        "Accept": "application/json",
+def upload_reference_image() -> Optional[str]:
+    """
+    Sube la imagen de referencia del producto a fal.ai y retorna su URL pública.
+    Esta URL se reutiliza en todos los prompts para activar img2img.
+    Retorna None si no hay imagen de referencia configurada.
+    """
+    ref_path = Path(REFERENCE_IMAGE_PATH) if REFERENCE_IMAGE_PATH else None
+
+    if not ref_path or not ref_path.exists():
+        if REFERENCE_IMAGE_PATH:
+            log.warning(f"Imagen de referencia no encontrada: {REFERENCE_IMAGE_PATH}")
+        else:
+            log.info("Sin imagen de referencia — generación text-to-image")
+        return None
+
+    log.info(f"Subiendo imagen de referencia a fal.ai: {ref_path.name}")
+    url = fal_client.upload_file(str(ref_path))
+    log.info(f"Referencia disponible en: {url}")
+    return url
+
+
+def build_arguments(prompt_data: dict, aspect_ratio: str, ref_url: Optional[str]) -> dict:
+    """
+    Construye los argumentos para fal_client.subscribe().
+
+    Documentación fal.ai — Nano Banana 2:
+      https://fal.ai/models/fal-ai/nano-banana-2/api
+    """
+    args = {
+        "prompt": prompt_data["prompt"],
+        "aspect_ratio": ASPECT_RATIOS[aspect_ratio],
+        "limit_generations": False,  # requerido para múltiples variaciones del mismo prompt
     }
 
+    # Negative prompt si está definido en el JSON
+    if prompt_data.get("negative_prompt"):
+        args["negative_prompt"] = prompt_data["negative_prompt"]
 
-def build_payload(prompt_data: dict, aspect_ratio: str, variation_seed: int) -> dict:
+    # img2img — pasa la URL de referencia si está disponible
+    if ref_url:
+        args["image_urls"] = [ref_url]
+
+    return args
+
+
+def generate_single_ad(
+    prompt_data: dict,
+    aspect_ratio: str,
+    variation_idx: int,
+    output_dirs: dict,
+    ref_url: Optional[str],
+) -> Optional[Path]:
     """
-    Construye el payload para Nano Banana Pro en kie.ai.
-
-    Estructura confirmada via debug_nbpro.py:
-      {
-        "model": "nano-banana-pro",
-        "input": {
-          "prompt": "...",
-          "aspect_ratio": "1:1" | "4:5" | ...,
-          "resolution": "1K",
-          "output_format": "jpg"
-        }
-      }
+    Genera una imagen individual via fal_client.subscribe() (síncrono, sin polling).
+    Retorna la ruta del archivo descargado, o None si falla.
     """
-    ratio_value = ASPECT_RATIOS[aspect_ratio]
-    return {
-        "model": MODEL,
-        "input": {
-            "prompt": prompt_data["prompt"],
-            "aspect_ratio": ratio_value,
-            "resolution": OUTPUT_RESOLUTION,
-            "output_format": OUTPUT_FORMAT,
-        },
-    }
+    ratio_key = aspect_ratio
+    output_dir = output_dirs[ratio_key]
+    safe_angle = prompt_data["angle"].replace(" ", "_")[:30]
+    filename = f"provi_p{prompt_data['id']:02d}_{safe_angle}_{ratio_key.replace(':', 'x')}_v{variation_idx}"
+    dest_path = output_dir / filename
 
+    args = build_arguments(prompt_data, aspect_ratio, ref_url)
 
-def request_with_retry(
-    method: str,
-    url: str,
-    max_retries: int = MAX_RETRIES,
-    **kwargs,
-) -> requests.Response:
-    """Ejecuta una petición HTTP con reintentos y backoff exponencial."""
-    for attempt in range(1, max_retries + 1):
+    for attempt in range(1, MAX_RETRIES + 1):
         try:
-            response = requests.request(method, url, timeout=30, **kwargs)
+            log.info(f"  >> ID:{prompt_data['id']:02d} | {aspect_ratio} | v{variation_idx} | {prompt_data['angle']}"
+                     + (" [img2img]" if ref_url else ""))
 
-            if response.status_code == 429:  # Rate limit
-                wait = RETRY_BACKOFF_BASE ** attempt
-                log.warning(f"Rate limit alcanzado. Esperando {wait:.1f}s (intento {attempt}/{max_retries})")
-                time.sleep(wait)
-                continue
+            result = fal_client.subscribe(FAL_MODEL, arguments=args)
 
-            if response.status_code >= 500:  # Error de servidor
-                wait = RETRY_BACKOFF_BASE ** attempt
-                log.warning(f"Error del servidor ({response.status_code}). Reintentando en {wait:.1f}s")
-                time.sleep(wait)
-                continue
+            # Extraer URL de la imagen generada
+            images = result.get("images") or []
+            if not images:
+                raise ValueError(f"Respuesta sin imágenes: {result}")
+            image_url = images[0]["url"]
 
-            response.raise_for_status()
-            return response
+            # Descargar la imagen
+            saved_path = download_image(image_url, dest_path)
+            log.info(f"  OK {saved_path.name}")
+            return saved_path
 
-        except requests.exceptions.Timeout:
+        except Exception as e:
             wait = RETRY_BACKOFF_BASE ** attempt
-            log.warning(f"Timeout en intento {attempt}/{max_retries}. Esperando {wait:.1f}s")
-            time.sleep(wait)
-        except requests.exceptions.ConnectionError as e:
-            wait = RETRY_BACKOFF_BASE ** attempt
-            log.warning(f"Error de conexión: {e}. Reintentando en {wait:.1f}s")
-            time.sleep(wait)
-
-    raise RuntimeError(f"Falló después de {max_retries} intentos: {method} {url}")
-
-
-def submit_generation_job(payload: dict) -> str:
-    """
-    Envía un job de generación a kie.ai — Nano Banana Pro.
-
-    Respuesta confirmada:
-        {"code": 200, "msg": "success", "data": {"taskId": "abc123", "recordId": "abc123"}}
-    """
-    response = request_with_retry("POST", NB2_GENERATE_ENDPOINT, headers=build_headers(), json=payload)
-    result = response.json()
-
-    if result.get("code") != 200:
-        raise ValueError(f"API error {result.get('code')}: {result.get('msg')} — {result}")
-
-    task_id = result.get("data", {}).get("taskId")
-    if not task_id:
-        raise ValueError(f"No se encontro taskId en la respuesta: {result}")
-
-    return task_id
-
-
-def poll_job_status(task_id: str) -> str:
-    """
-    Hace polling al endpoint GET /recordInfo?taskId=<id> de kie.ai (Nano Banana Pro).
-
-    Respuesta confirmada al completar:
-        {
-          "code": 200, "msg": "success",
-          "data": {
-            "taskId": "...",
-            "state": "success",
-            "resultJson": "{\"resultUrls\":[\"https://...\"]}"
-          }
-        }
-    """
-    url = f"{NB2_STATUS_ENDPOINT}?taskId={task_id}"
-    for attempt in range(MAX_POLL_ATTEMPTS):
-        response = request_with_retry("GET", url, headers=build_headers())
-        result = response.json()
-        data = result.get("data", {})
-        state = data.get("state", "").lower()
-
-        if state == "success":
-            result_json_str = data.get("resultJson", "")
-            try:
-                urls = json.loads(result_json_str).get("resultUrls") or []
-                image_url = urls[0] if urls else None
-            except (json.JSONDecodeError, IndexError):
-                image_url = None
-            if not image_url:
-                raise ValueError(f"Task exitoso pero sin URL de imagen: {data}")
-            return image_url
-
-        if state in ("failed", "error"):
-            err = data.get("failMsg") or data.get("failCode") or "Error desconocido"
-            raise RuntimeError(f"Task {task_id} fallo: {err}")
-
-        log.debug(f"Task {task_id} — state={state!r} (poll {attempt + 1}/{MAX_POLL_ATTEMPTS})")
-        time.sleep(POLL_INTERVAL)
-
-    raise TimeoutError(f"Task {task_id} no completo en {MAX_POLL_ATTEMPTS * POLL_INTERVAL:.0f}s")
+            if attempt < MAX_RETRIES:
+                log.warning(f"  Intento {attempt}/{MAX_RETRIES} fallido: {e}. Reintentando en {wait:.0f}s")
+                time.sleep(wait)
+            else:
+                log.error(f"  FALLO ID:{prompt_data['id']} v{variation_idx} [{aspect_ratio}]: {e}")
+                return None
 
 
 def download_image(image_url: str, dest_path: Path) -> Path:
     """Descarga una imagen desde una URL y la guarda en dest_path."""
-    response = request_with_retry("GET", image_url, stream=True)
+    response = requests.get(image_url, timeout=60, stream=True)
+    response.raise_for_status()
 
-    # Detectar extensión desde Content-Type o URL
-    content_type = response.headers.get("Content-Type", "image/png")
-    ext = mimetypes.guess_extension(content_type.split(";")[0].strip()) or ".png"
-    ext = ext.replace(".jpe", ".jpg")  # normalizar
+    content_type = response.headers.get("Content-Type", "image/jpeg")
+    ext = mimetypes.guess_extension(content_type.split(";")[0].strip()) or ".jpg"
+    ext = ext.replace(".jpe", ".jpg")
 
     final_path = dest_path.with_suffix(ext)
     with open(final_path, "wb") as f:
@@ -274,52 +236,17 @@ def download_image(image_url: str, dest_path: Path) -> Path:
     return final_path
 
 
-def generate_single_ad(
-    prompt_data: dict,
-    aspect_ratio: str,
-    variation_idx: int,
-    output_dirs: dict,
-) -> Optional[Path]:
-    """
-    Genera una imagen individual: submit → poll → download.
-    Retorna la ruta del archivo descargado, o None si falla.
-    """
-    # Seed reproducible pero único por variación
-    seed_source = f"{prompt_data['id']}-{aspect_ratio}-{variation_idx}"
-    seed = int(hashlib.md5(seed_source.encode()).hexdigest()[:8], 16)
-
-    payload = build_payload(prompt_data, aspect_ratio, seed)
-
-    ratio_key = aspect_ratio
-    output_dir = output_dirs[ratio_key]
-    filename = f"provi_p{prompt_data['id']:02d}_{prompt_data['angle']}_{ratio_key.replace(':', 'x')}_v{variation_idx}"
-    dest_path = output_dir / filename
-
-    try:
-        log.info(f"  >> ID:{prompt_data['id']} | {aspect_ratio} | v{variation_idx} | {prompt_data['angle']}")
-        job_id = submit_generation_job(payload)
-        image_url = poll_job_status(job_id)
-        saved_path = download_image(image_url, dest_path)
-        log.info(f"  OK Guardado: {saved_path.name}")
-        return saved_path
-
-    except Exception as e:
-        log.error(f"  FALLO ID:{prompt_data['id']} v{variation_idx} [{aspect_ratio}]: {e}")
-        return None
-
-
 # ─────────────────────────────────────────────
 # GALERÍA HTML
 # ─────────────────────────────────────────────
 
-def generate_gallery(output_dirs: dict, all_results: list[dict]) -> Path:
+def generate_gallery(output_dirs: dict, all_results: list[dict], used_img2img: bool) -> Path:
     """
     Genera una galería HTML moderna, responsiva y filtrable con Tailwind CSS.
     Agrupa los anuncios por formato (1:1 / 4:5).
     """
     gallery_path = OUTPUT_DIR / "index.html"
 
-    # Agrupar imágenes por ratio
     by_ratio: dict[str, list] = {ratio: [] for ratio in ASPECT_RATIOS}
     for result in all_results:
         if result.get("path") and result["path"].exists():
@@ -338,8 +265,8 @@ def generate_gallery(output_dirs: dict, all_results: list[dict]) -> Path:
 
     total_images = sum(len(v) for v in by_ratio.values())
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+    model_badge = "fal.ai · Nano Banana 2" + (" · img2img" if used_img2img else "")
 
-    # Generar cards HTML por ratio
     def build_cards(items: list, ratio: str) -> str:
         if not items:
             return '<p class="text-gray-400 col-span-full text-center py-10">Sin imágenes generadas para este formato.</p>'
@@ -381,7 +308,7 @@ def generate_gallery(output_dirs: dict, all_results: list[dict]) -> Path:
     for ratio, items in by_ratio.items():
         ratio_id = ratio.replace(":", "x")
         active_tab = "tab-active" if first else "tab-inactive"
-        active_panel = "" if first else 'hidden'
+        active_panel = "" if first else "hidden"
         count = len(items)
         cols = "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" if ratio == "1:1" else "grid-cols-2 sm:grid-cols-3 lg:grid-cols-3"
 
@@ -402,7 +329,6 @@ def generate_gallery(output_dirs: dict, all_results: list[dict]) -> Path:
         </div>"""
         first = False
 
-    # Estadísticas por ángulo
     angle_stats = {}
     for result in all_results:
         if result.get("path") and result["path"].exists():
@@ -453,7 +379,7 @@ def generate_gallery(output_dirs: dict, all_results: list[dict]) -> Path:
         <div class="text-right">
           <p class="text-white/60 text-xs">Generado el</p>
           <p class="text-white font-semibold">{timestamp}</p>
-          <p class="text-teal-300 text-xs mt-1">Nano Banana 2 · {VARIATIONS_PER_PROMPT} variaciones/prompt</p>
+          <p class="text-teal-300 text-xs mt-1">{model_badge} · {VARIATIONS_PER_PROMPT} variaciones/prompt</p>
         </div>
       </div>
 
@@ -480,26 +406,22 @@ def generate_gallery(output_dirs: dict, all_results: list[dict]) -> Path:
 
   <!-- Footer -->
   <footer class="text-center py-6 text-gray-400 text-xs border-t border-gray-200 mt-10">
-    PROVI · Kit Lila · Pipeline generado con Claude Code + Nano Banana 2
+    PROVI · Kit Lila · Pipeline generado con Claude Code + fal.ai Nano Banana 2
   </footer>
 
   <script>
     function switchTab(ratioId) {{
-      // Ocultar todos los paneles
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-      // Desactivar todos los botones
       document.querySelectorAll('.tab-btn').forEach(b => {{
         b.classList.remove('tab-active');
         b.classList.add('tab-inactive');
       }});
-      // Activar panel y botón seleccionado
       document.getElementById('panel-' + ratioId).classList.remove('hidden');
       const btn = document.getElementById('btn-' + ratioId);
       btn.classList.add('tab-active');
       btn.classList.remove('tab-inactive');
     }}
 
-    // Lightbox simple al hacer click en imagen
     document.addEventListener('DOMContentLoaded', () => {{
       const overlay = document.createElement('div');
       overlay.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;cursor:zoom-out;justify-content:center;align-items:center;padding:20px';
@@ -533,21 +455,20 @@ def generate_gallery(output_dirs: dict, all_results: list[dict]) -> Path:
 
 def validate_config():
     """Valida la configuración antes de ejecutar el pipeline."""
-    errors = []
-    if API_KEY in ("TU_API_KEY_AQUI", "", None):
-        errors.append("ERROR: API_KEY no configurada. Agrega NB2_API_KEY en tu .env o edita el script.")
-    if errors:
-        print("\n".join(errors))
-        print("\nEdita el script o crea un archivo .env con NB2_API_KEY=tu_clave")
+    if FAL_KEY in ("TU_FAL_KEY_AQUI", "", None):
+        print("ERROR: FAL_KEY no configurada.")
+        print("Crea un archivo .env con: FAL_KEY=tu_clave_de_fal.ai")
+        print("Obtén tu clave en: https://fal.ai/dashboard/keys")
         raise SystemExit(1)
 
 
 def run_pipeline():
     """Ejecuta el pipeline completo de generación."""
     validate_config()
+    setup_logging()
 
     log.info("=" * 60)
-    log.info(f"PROVI Kit Lila — Iniciando pipeline ({MODEL})")
+    log.info(f"PROVI Kit Lila — Pipeline iniciado ({FAL_MODEL})")
     log.info(f"Variaciones por prompt: {VARIATIONS_PER_PROMPT}")
     log.info(f"Formatos: {list(ASPECT_RATIOS.keys())}")
     log.info("=" * 60)
@@ -555,7 +476,10 @@ def run_pipeline():
     output_dirs = setup_output_dirs()
     prompts = load_prompts()
 
-    # Calcular total de generaciones
+    # Subir imagen de referencia una sola vez (reutilizar en todos los prompts)
+    ref_url = upload_reference_image()
+    used_img2img = ref_url is not None
+
     total_jobs = len(prompts) * VARIATIONS_PER_PROMPT
     log.info(f"Total de imágenes a generar: {total_jobs}")
 
@@ -572,6 +496,7 @@ def run_pipeline():
                     aspect_ratio=aspect_ratio,
                     variation_idx=variation_idx,
                     output_dirs=output_dirs,
+                    ref_url=ref_url,
                 )
 
                 result = {
@@ -590,19 +515,16 @@ def run_pipeline():
                     failed_jobs.append(result)
 
                 pbar.update(1)
-                # Rate limiting
                 time.sleep(DELAY_BETWEEN_REQUESTS)
 
-    # Resumen
     successful = sum(1 for r in all_results if r["path"] is not None)
     log.info("=" * 60)
     log.info(f"Pipeline completado: {successful}/{total_jobs} imágenes generadas")
     if failed_jobs:
-        log.warning(f"Fallidas: {len(failed_jobs)} — revisa generation.log para detalles")
+        log.warning(f"Fallidas: {len(failed_jobs)} — revisa generation.log")
 
-    # Generar galería HTML
-    gallery_path = generate_gallery(output_dirs, all_results)
-    log.info(f"Galería disponible en: {gallery_path.resolve()}")
+    gallery_path = generate_gallery(output_dirs, all_results, used_img2img)
+    log.info(f"Galería: {gallery_path.resolve()}")
     log.info("=" * 60)
 
 
